@@ -3,13 +3,16 @@ version: '3.9'
 services:
   web:
     image: php7.4-apache:projet
-    container_name: projet-php-apache
+    container_name: videgrenier-phpapache
     ports:
       # local:container
       - "1337:80"
     environment: 
-      - APACHE_DOCUMENT_ROOT=/var/www/html
-      - COMPOSER_ALLOW_SUPERUSER=1
+        MYSQL_ROOT_PASSWORD: root_password
+        MYSQL_DATABASE: videgrenierenligne
+        MYSQL_USER: webapplication
+        MYSQL_PASSWORD: 653rag9T
+      
     volumes:
       # Volume stockant les fichiers web du projet
       - ./:/var/www/html
@@ -18,17 +21,16 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - db
-    links:
-      # Lien vers le conteneur "db" (déclaré ci-après)
-      - db:db
+    # command: sh -c "npm install && npm run watch"
 
   pma:
     image: phpmyadmin
-    container_name: projet-phpmyadmin
+    container_name: videgrenier-phpmyadmin
     environment:
       # https://docs.phpmyadmin.net/en/latest/setup.html#docker-environment-variables
       PMA_HOST: db
       PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root_password
       UPLOAD_LIMIT: 1024M
     ports:
       - "8080:80"
@@ -43,8 +45,10 @@ services:
     volumes:
       # Volume de la base de données
       - ./db-data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
     environment:
-      MYSQL_DATABASE: wordpress
-      # MYSQL_ROOT_PASSWORD: XXXXXXXXX
-      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-      # MARIADB_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: videgrenierenligne
+      MYSQL_USER: webapplication
+      MYSQL_PASSWORD: 653rag9T
+
