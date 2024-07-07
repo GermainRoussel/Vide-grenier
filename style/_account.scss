@@ -20,7 +20,7 @@
     margin-top: -288px;
     .l-head {
       background-color: $c-white;
-
+      
       padding: 40px;
       border-bottom: solid 1px $c-divider;
       font-weight: 500;
@@ -125,7 +125,7 @@
   }
 }
 
-@media (min-width: 100px) and (max-width: 1365px) {
+@media (min-width: 100px) {
   .banner-text {
     position: relative;
     top: 0;
@@ -162,7 +162,7 @@
         padding: 20px 10px;
       }
       .l-form {
-
+        
         //text-align: left;
         //background-color: #fbfdfe;
         //border-bottom-left-radius: 3px;

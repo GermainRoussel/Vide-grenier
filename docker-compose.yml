@@ -12,7 +12,6 @@ services:
         MYSQL_DATABASE: videgrenierenligne
         MYSQL_USER: webapplication
         MYSQL_PASSWORD: 653rag9T
-      
     volumes:
       # Volume stockant les fichiers web du projet
       - ./:/var/www/html
@@ -21,13 +20,12 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - db
-    # command: sh -c "npm install && npm run watch"
+      - node  # Ensure the node service starts before the web service
 
   pma:
     image: phpmyadmin
     container_name: videgrenier-phpmyadmin
     environment:
-      # https://docs.phpmyadmin.net/en/latest/setup.html#docker-environment-variables
       PMA_HOST: db
       PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: root_password
@@ -52,3 +50,12 @@ services:
       MYSQL_USER: webapplication
       MYSQL_PASSWORD: 653rag9T
 
+  node:
+    image: node:14
+    container_name: videgrenier-node
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    command: sh -c "npm install && npm run watch"
+    depends_on:
+      - db
