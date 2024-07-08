@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   web:
-    image: php7.4-apache:projet
+    image: php8.0.2-apache:projet
     container_name: videgrenier-phpapache
     ports:
       # local:container
