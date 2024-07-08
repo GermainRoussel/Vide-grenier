@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Produit{% endblock %}
+{% block title %}Produit{</div>% endblock %}
 
 {% block body %}
 <div class="content-wrapper upload-page edit-page">
@@ -39,6 +39,7 @@
                                 <div class="form-group">
                                     <label for="e2">Ville *</label>
                                     <input class="form-control cityAutoComplete" type="text" autocomplete="off" required/>
+                                    <ul class="autocomplete-results"></ul> 
                                 </div>
                             </div>
 
@@ -69,22 +70,37 @@
 {% endblock body %}
 
 {% block javascript %}
-    <script type="text/javascript">
-        $('.cityAutoComplete').autoComplete({
-            resolver: 'custom',
-            events: {
-                search: function (qry, callback) {
-                    // let's do a custom ajax call
-                    $.ajax(
-                        '/api/cities',
-                        {
-                            data: { 'query': qry}
-                        }
-                    ).done(function (res) {
-                        callback(res)
-                    });
-                }
-            }
-        });
-    </script>
+<script type="text/javascript">
+    $('.cityAutoComplete').autoComplete({
+        resolver: 'custom',
+        minLength: 0,
+        events: {
+            search: function (qry, callback) {
+                // let's do a custom ajax call
+                $.ajax(
+                    '/api/cities',
+                    {
+                        data: { 'query': qry.toLowerCase() },
+                    }
+                ).done(function (res) {
+                    //console.log(res); // Log the response to the console
+                    callback(res);
+                });
+            },
+        },
+
+        
+    });
+    $('.form-control.cityAutoComplete').keydown(function (e) {
+        $('.bootstrap-autocomplete.dropdown-menu').css('display', 'block');
+    });
+    $('.form-control.cityAutoComplete').blur(function (e) {
+        window.setTimeout(() => {
+            $('.bootstrap-autocomplete.dropdown-menu').css('display', 'none');
+        }, 100);
+    });
+
+    
+</script>
+{% endblock %}
 {% endblock %}
