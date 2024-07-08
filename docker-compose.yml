@@ -8,10 +8,11 @@ services:
       # local:container
       - "1337:80"
     environment: 
-        MYSQL_ROOT_PASSWORD: root_password
-        MYSQL_DATABASE: videgrenierenligne
-        MYSQL_USER: webapplication
-        MYSQL_PASSWORD: 653rag9T
+          ALLOW_OVERRIDE: 'true'
+          user: 'root'
+          db: 'mariadb'
+          password: 'root' 
+          host: 'db'
     volumes:
       # Volume stockant les fichiers web du projet
       - ./:/var/www/html
@@ -21,7 +22,7 @@ services:
     depends_on:
       - db
       - node  # Ensure the node service starts before the web service
-
+  
   pma:
     image: phpmyadmin
     container_name: videgrenier-phpmyadmin
@@ -34,7 +35,7 @@ services:
       - "8080:80"
     links:
       - db:db
-
+  
   db:
     image: mariadb:latest
     container_name: projet-mysql

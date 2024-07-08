@@ -1746,7 +1746,7 @@ footer {
     color: #a1a1a1;
     text-align: left; }
 
-@media (min-width: 100px) and (max-width: 1365px) {
+@media (min-width: 100px) {
   .banner-text {
     position: relative;
     top: 0;
