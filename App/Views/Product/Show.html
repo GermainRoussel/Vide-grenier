@@ -155,10 +155,8 @@ document.getElementById('contactSellerForm').addEventListener('submit', function
         },
         body: JSON.stringify({ subject: subject, content: content, email: email})
     })
-    .then(response => response.json())
     .then(data => {
-        //alert(data.message);
-        console.log(data);
+        alert('Email sent successfully');
         modal.style.display = "none";
     })
     .catch(error => {
