@@ -55,6 +55,7 @@ RUN a2enconf docker-php
 
 # Install dependencies
 WORKDIR /var/www/html/
+RUN composer update
 RUN composer install
 #RUN npm install
 #RUN npm run watch
