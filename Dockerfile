@@ -9,8 +9,14 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     vim \
+    git \
     python2 \
-    python2-dev
+    python2-dev\
+    && docker-php-ext-install pdo pdo_mysql
+
+# Clone the repository
+ARG BRANCH
+RUN git clone -b ${BRANCH} https://github.com/GermainRoussel/Vide-grenier.git /var/www/html
 
 # Symlink Python to python for node-gyp
 RUN ln -s /usr/bin/python2 /usr/bin/python
