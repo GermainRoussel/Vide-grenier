@@ -2,17 +2,17 @@ version: '3.9'
 
 services:
   web:
-    image: php7.4-apache:projet
+    image: php8.0.2-apache:projet
     container_name: videgrenier-phpapache
     ports:
       # local:container
       - "1337:80"
     environment: 
-        MYSQL_ROOT_PASSWORD: root_password
-        MYSQL_DATABASE: videgrenierenligne
-        MYSQL_USER: webapplication
-        MYSQL_PASSWORD: 653rag9T
-      
+          ALLOW_OVERRIDE: 'true'
+          user: 'root'
+          db: 'mariadb'
+          password: 'root' 
+          host: 'db'
     volumes:
       # Volume stockant les fichiers web du projet
       - ./:/var/www/html
@@ -21,13 +21,12 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - db
-    # command: sh -c "npm install && npm run watch"
-
+      - node  # Ensure the node service starts before the web service
+  
   pma:
     image: phpmyadmin
     container_name: videgrenier-phpmyadmin
     environment:
-      # https://docs.phpmyadmin.net/en/latest/setup.html#docker-environment-variables
       PMA_HOST: db
       PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: root_password
@@ -36,7 +35,7 @@ services:
       - "8080:80"
     links:
       - db:db
-
+  
   db:
     image: mariadb:latest
     container_name: projet-mysql
@@ -44,7 +43,7 @@ services:
       - "3306:3306"
     volumes:
       # Volume de la base de données
-      - ./db-data:/var/lib/mysql
+      - db-data:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: root_password
@@ -52,3 +51,15 @@ services:
       MYSQL_USER: webapplication
       MYSQL_PASSWORD: 653rag9T
 
+  node:
+    image: node:14
+    container_name: videgrenier-node
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    command: sh -c "npm install && npm run watch"
+    depends_on:
+      - db
+
+volumes:
+  db-data: 
