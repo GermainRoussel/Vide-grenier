@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.0.2-apache
 
 # Modules apache
 RUN a2enmod headers deflate expires rewrite
@@ -67,7 +67,7 @@ RUN npm install
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
 # Set the entrypoint
-ENTRYPOINT ["/start.sh"]
+#ENTRYPOINT ["/start.sh"]
 
 # Restart Apache to apply changes
 RUN service apache2 restart
