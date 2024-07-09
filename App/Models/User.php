@@ -13,6 +13,18 @@ use App\Utility;
  */
 class User extends Model {
 
+
+     /**
+     * ??
+     * @access public
+     * @return string|boolean
+     * @throws Exception
+     */
+    public static function fetchTestDatabaseConnection() {
+        // Rajout de l'accès à la base de données pour ArticleTest //
+        return static::getDB();
+    }
+
     /**
      * Crée un utilisateur
      */
@@ -46,19 +58,16 @@ class User extends Model {
     }
 
 
-    /**
-     * ?
-     * @access public
-     * @return string|boolean
+ /**
+     * Login user by ID
+     * @param int $id
+     * @return array|boolean
      * @throws Exception
      */
-    public static function login() {
+    public static function login($id) {
         $db = static::getDB();
-
-        $stmt = $db->prepare('SELECT * FROM articles WHERE articles.id = ? LIMIT 1');
-
+        $stmt = $db->prepare('SELECT * FROM users WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
-
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 

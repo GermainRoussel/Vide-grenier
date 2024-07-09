@@ -8,7 +8,12 @@
     "autoload": {
         "psr-4": {
             "Core\\": "Core/",
+            "Tests\\": "tests/",
             "App\\": "App/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "symfony/phpunit-bridge": "^7.1"
     }
 }

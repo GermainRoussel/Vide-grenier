@@ -14,6 +14,17 @@ use App\Utility;
 class Articles extends Model {
 
     /**
+     * ??
+     * @access public
+     * @return string|boolean
+     * @throws Exception
+     */
+    public static function fetchTestDatabaseConnection() {
+        // Rajout de l'accès à la base de données pour ArticleTest //
+        return static::getDB();
+    }
+    
+    /**
      * ?
      * @access public
      * @return string|boolean

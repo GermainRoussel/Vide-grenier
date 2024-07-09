@@ -55,6 +55,7 @@ RUN a2enconf docker-php
 
 # Install dependencies
 WORKDIR /var/www/html/
+RUN composer update
 RUN composer install
 #RUN npm install
 #RUN npm run watch
@@ -64,11 +65,12 @@ RUN composer install
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
 # Copy the start script
-# COPY start.sh /start.sh
-# RUN chmod +x /start.sh
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
-# # Set the entrypoint
-# ENTRYPOINT ["/start.sh"]
+# Set the entrypoint
+ENTRYPOINT ["/start.sh"]
+
 
 # Restart Apache to apply changes
 RUN service apache2 restart

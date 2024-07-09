@@ -67,7 +67,9 @@ class Product extends \Core\Controller
 
 
     
-
+ /* 
+* Affiche la page de recherche
+*/
     public function sendEmailAction()
     {
         try {

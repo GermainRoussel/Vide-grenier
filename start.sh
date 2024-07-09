@@ -1,16 +1,16 @@
-!/bin/bash
+#!/bin/sh
 
+# Enter the directory containing the application code
+cd /var/www/html
 
-# Attendre que la base de données soit prête (exemple simplifié)
-# until mysql -u webapplication -p"653rag9T" -h db -e "SELECT 1"; do
-#     echo "En attente de la base de données..."
-#     sleep 1
-# done
+# Update composer dependencies
+composer update
 
-# echo "La base de données est prête."
+# Install composer dependencies
+composer install
 
-# Importer la base de données
-mysql -u webapplication -p"653rag9T" -h db videgrenierenligne < /var/www/html/sql/import.sql
+# Run PHPUnit tests
+./vendor/bin/phpunit --testdox
 
-# Démarrer Apache en mode premier plan
-exec apache2-foreground
+# Start Apache in the foreground
+apache2-foreground
