@@ -39,9 +39,10 @@ RUN node --version
 
 # Arguments to specify the branch
 ARG BRANCH
+ARG GITHUB_TOKEN
 
 # Clone the specific branch from the repository
-RUN git clone -b $BRANCH https://github.com/GermainRoussel/Vide-grenier /var/www/html
+RUN git clone -b $BRANCH https://$GITHUB_TOKEN@github.com/GermainRoussel/Vide-grenier /var/www/html
 
 # Virtualhost
 COPY Docker-vhost.conf /etc/apache2/sites-enabled/docker-vhost-wp.conf
