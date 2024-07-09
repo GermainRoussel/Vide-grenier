@@ -6,14 +6,14 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        BRANCH: dev  # Specify the branch for dev
-    container_name: dev-phpapache
+        BRANCH: stage  # Specify the branch for stage
+    container_name: stage-phpapache
     ports:
-      - "1337:80"
+      - "1338:80"
     environment:
       ALLOW_OVERRIDE: 'true'
       user: 'root'
-      DB_NAME: videgrenierenligne_dev
+      DB_NAME: videgrenierenligne_stage
       DB_USER: webapplication
       DB_PASSWORD: 653rag9T
       DB_HOST: db
@@ -23,42 +23,42 @@ services:
       - db
       - node
     networks:
-      - dev-network
+      - stage-network
 
   pma:
     image: phpmyadmin
-    container_name: dev-phpmyadmin
+    container_name: stage-phpmyadmin
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: root_password
       UPLOAD_LIMIT: 1024M
     ports:
-      - "8080:80"
+      - "8081:80"
     depends_on:
       - db
     networks:
-      - dev-network
+      - stage-network
 
   db:
     image: mariadb:latest
-    container_name: dev-mysql
+    container_name: stage-mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
-      - dev-db-data:/var/lib/mysql
+      - stage-db-data:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: videgrenierenligne_dev
+      MYSQL_DATABASE: videgrenierenligne_stage
       MYSQL_USER: webapplication
       MYSQL_PASSWORD: 653rag9T
     networks:
-      - dev-network
+      - stage-network
 
   node:
     image: node:14
-    container_name: dev-node
+    container_name: stage-node
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html
@@ -66,10 +66,10 @@ services:
     depends_on:
       - db
     networks:
-      - dev-network
+      - stage-network
 
 volumes:
-  dev-db-data:
+  stage-db-data:
 
 networks:
-  dev-network:
+  stage-network:
