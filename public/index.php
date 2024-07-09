@@ -36,6 +36,8 @@ $router->add('account', ['controller' => 'User', 'action' => 'account', 'private
 $router->add('product', ['controller' => 'Product', 'action' => 'index', 'private' => true]);
 $router->add('product/{id:\d+}', ['controller' => 'Product', 'action' => 'show']);
 $router->add('{controller}/{action}');
+$router->add('send-email', ['controller' => 'Product', 'action' => 'sendEmail', 'method' => 'POST']);
+
 
 /*
  * Gestion des erreurs dans le routing

@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.0.2-apache
 
 # Modules apache
 RUN a2enmod headers deflate expires rewrite
@@ -56,7 +56,8 @@ RUN a2enconf docker-php
 # Install dependencies
 WORKDIR /var/www/html/
 RUN composer install
-RUN npm install
+#RUN npm install
+#RUN npm run watch
 
 
 # Ensure proper permissions for the web server

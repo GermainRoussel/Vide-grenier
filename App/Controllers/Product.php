@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Articles;
+use App\Utility\Email;
 use App\Utility\Upload;
 use \Core\View;
 
@@ -63,4 +64,38 @@ class Product extends \Core\Controller
             'suggestions' => $suggestions
         ]);
     }
+
+
+    
+
+    public function sendEmailAction()
+    {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $data = json_decode(file_get_contents('php://input'), true);
+
+                if (!isset($data['subject']) || !isset($data['content'])) {
+                    throw new Exception('Subject and content are required.');
+                }
+
+                $subject = $data['subject'];
+                $content = $data['content'];
+                $email = $data['email'];
+
+                // For debugging
+                error_log('Subject: ' . $subject);
+                error_log('Content: ' . $content);
+
+                Email::sendMail($email, $content, $subject); // Change to your Yopmail address
+                echo json_encode(['message' => 'Email sent successfully']);
+            } else {
+                throw new Exception('Invalid request method');
+            }
+        } catch (Exception $e) {
+            error_log('Error: ' . $e->getMessage());
+            echo json_encode(['message' => 'Failed to send email: ' . $e->getMessage()]);
+            http_response_code(500);
+        }
+    }
+
 }
