@@ -1,0 +1,75 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BRANCH: main  # Specify the branch for production (main)
+    container_name: prod-phpapache
+    ports:
+      - "1340:80"
+    environment:
+      ALLOW_OVERRIDE: 'true'
+      user: 'root'
+      DB_NAME: videgrenierenligne_prod
+      DB_USER: webapplication
+      DB_PASSWORD: 653rag9T
+      DB_HOST: db
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+      - node
+    networks:
+      - prod-network
+
+  pma:
+    image: phpmyadmin
+    container_name: prod-phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root_password
+      UPLOAD_LIMIT: 1024M
+    ports:
+      - "8083:80"
+    depends_on:
+      - db
+    networks:
+      - prod-network
+
+  db:
+    image: mariadb:latest
+    container_name: prod-mysql
+    ports:
+      - "3309:3306"
+    volumes:
+      - prod-db-data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: videgrenierenligne_prod
+      MYSQL_USER: webapplication
+      MYSQL_PASSWORD: 653rag9T
+    networks:
+      - prod-network
+
+  node:
+    image: node:14
+    container_name: prod-node
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    command: sh -c "npm install && npm run watch"
+    depends_on:
+      - db
+    networks:
+      - prod-network
+
+volumes:
+  prod-db-data:
+
+networks:
+  prod-network:
