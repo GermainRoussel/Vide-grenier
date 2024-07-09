@@ -12,10 +12,12 @@ function Update-Stage {
     docker-compose -f docker-compose.stage.yml stop
 
     # Remove node_modules folder if it exists
-    if (Test-Path "src\node_modules") {
-        Remove-Item -Recurse -Force "src\node_modules"
+    $nodeModulesPath = Join-Path $stageDir "node_modules"
+    if (Test-Path $nodeModulesPath) {
+        Write-Host "Removing node_modules directory at $nodeModulesPath"
+        Remove-Item -Recurse -Force $nodeModulesPath
     } else {
-        Write-Host "node_modules folder not found, skipping removal."
+        Write-Host "node_modules directory not found at $nodeModulesPath, skipping removal."
     }
 
     # Pull the latest changes from the Git repository
