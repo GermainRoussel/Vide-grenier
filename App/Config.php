@@ -20,7 +20,9 @@ class Config
      * Database name
      * @var string
      */
-    const DB_NAME = 'videgrenierenligne_dev';
+
+
+    const DB_NAME = 'videgrenierenligne_stage';
 
     /**
      * Database user
