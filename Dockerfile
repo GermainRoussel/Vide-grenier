@@ -1,4 +1,4 @@
-FROM php:8.0.2-apache
+FROM php:7.4-apache
 
 # Modules apache
 RUN a2enmod headers deflate expires rewrite
@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     vim \
+    git \
     python2 \
     python2-dev
 
@@ -43,6 +44,10 @@ COPY Docker-vhost.conf /etc/apache2/sites-enabled/docker-vhost-wp.conf
 COPY composer.json /var/www/html/composer.json
 COPY package.json /var/www/html/package.json
 
+# Copy the start script
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
 RUN chown -R www-data:www-data /var/www/html/public && \
     chmod -R 755 /var/www/html/public
     
@@ -55,22 +60,14 @@ RUN a2enconf docker-php
 
 # Install dependencies
 WORKDIR /var/www/html/
-RUN composer update
 RUN composer install
-#RUN npm install
-#RUN npm run watch
-
+RUN npm install
 
 # Ensure proper permissions for the web server
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
-# Copy the start script
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
-
 # Set the entrypoint
 ENTRYPOINT ["/start.sh"]
-
 
 # Restart Apache to apply changes
 RUN service apache2 restart
