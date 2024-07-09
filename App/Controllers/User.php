@@ -96,6 +96,9 @@ class User extends \Core\Controller
         }
     }
 
+    /* 
+    * Fonction privée pour connecter un utilisateur
+    */
     private function login($data){
         try {
             if(!isset($data['email'])){
