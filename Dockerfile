@@ -9,14 +9,10 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     vim \
-    git \
     python2 \
     python2-dev\
-    && docker-php-ext-install pdo pdo_mysql
+    git
 
-# Clone the repository
-ARG BRANCH
-RUN git clone -b ${BRANCH} https://github.com/GermainRoussel/Vide-grenier.git /var/www/html
 
 # Symlink Python to python for node-gyp
 RUN ln -s /usr/bin/python2 /usr/bin/python
@@ -41,8 +37,11 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
 RUN npm --version
 RUN node --version
 
-# Copy application source
-COPY . /var/www/html/
+# Arguments to specify the branch
+ARG BRANCH
+
+# Clone the specific branch from the repository
+RUN git clone -b $BRANCH https://github.com/GermainRoussel/Vide-grenier /var/www/html
 
 # Virtualhost
 COPY Docker-vhost.conf /etc/apache2/sites-enabled/docker-vhost-wp.conf
