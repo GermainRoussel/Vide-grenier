@@ -89,7 +89,7 @@ class Articles extends Model {
     }
 
     /**
-     * ?
+     * Méthode pour récupérer les articles d'un utilisateur
      * @access public
      * @return string|boolean
      * @throws Exception

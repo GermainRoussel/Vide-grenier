@@ -6,7 +6,9 @@ use PHPUnit\Framework\TestCase;
 use App\Models\Cities;
 
 
-
+/**
+ * UserTest Model
+ */
 class CitiesTest extends TestCase {
 
     /** @test */
