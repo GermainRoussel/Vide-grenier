@@ -5,7 +5,7 @@ body {
   color: #2e2e2e;
   font-family: "Hind Guntur", sans-serif;
   font-size: 16px;
-  background-color: #ffffff; }
+  background-color: red; }
 
 body.light {
   background-color: #ffffff; }
@@ -627,6 +627,42 @@ video {
 */
 .content-wrapper {
   background-color: #fbfdfe; }
+
+.search-bar {
+  margin: 20px 0;
+  /* Add some space around the search bar */
+  display: flex;
+  justify-content: center;
+  /* Center the search bar */ }
+
+.search-bar .form-control {
+  width: 100%;
+  max-width: 600px;
+  /* Limit the maximum width */
+  border-radius: 25px;
+  /* Rounded corners */
+  padding: 10px 20px;
+  /* Padding inside the input */
+  border: 1px solid #ddd;
+  /* Border color */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow */
+  font-size: 16px;
+  /* Larger font size */ }
+
+.search-bar .form-control::placeholder {
+  color: #aaa;
+  /* Placeholder color */
+  font-style: italic;
+  /* Italic placeholder text */ }
+
+.search-bar .form-control:focus {
+  border-color: #007bff;
+  /* Border color on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  /* Shadow on focus */
+  outline: none;
+  /* Remove default outline */ }
 
 .content-block .cb-header {
   padding: 20px 0;
