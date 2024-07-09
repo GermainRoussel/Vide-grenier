@@ -39,6 +39,7 @@ RUN node --version
 
 # Arguments to specify the branch
 ARG BRANCH
+ARG GITHUB_TOKEN
 
 # Clone the specific branch from the repository
 RUN git clone -b $BRANCH https://github.com/GermainRoussel/Vide-grenier /var/www/html
