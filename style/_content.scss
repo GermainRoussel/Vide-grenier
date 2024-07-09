@@ -570,8 +570,12 @@
 }
 
 .cb-content {
-    width: 130% !important; // FIX INTERNET EXPLORER ;
+    max-width: 100vw !important; // FIX INTERNET EXPLORER ;
+  
+    
 }
+
+
 
 /*
 * Content Index END

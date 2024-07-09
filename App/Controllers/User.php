@@ -52,9 +52,10 @@ class User extends \Core\Controller
             // validation
 
             $this->register($f);
-            // TODO: Rappeler la fonction de login pour connecter l'utilisateur
+            $this->login($f);
+            View::renderTemplate('Home/index.html');
         }
-
+        
         View::renderTemplate('User/register.html');
     }
 
@@ -95,6 +96,9 @@ class User extends \Core\Controller
         }
     }
 
+    /* 
+    * Fonction privée pour connecter un utilisateur
+    */
     private function login($data){
         try {
             if(!isset($data['email'])){

@@ -2,12 +2,18 @@
     "require": {
         "twig/twig": "~3.0",
       "ext-pdo": "*",
-      "ext-json": "*"
+      "ext-json": "*",
+      "phpmailer/phpmailer": "^6.6"
     },
     "autoload": {
         "psr-4": {
             "Core\\": "Core/",
+            "Tests\\": "tests/",
             "App\\": "App/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "symfony/phpunit-bridge": "^7.1"
     }
 }

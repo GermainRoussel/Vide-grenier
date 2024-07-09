@@ -14,12 +14,14 @@ class Config
      * Database host
      * @var string
      */
-    const DB_HOST = 'localhost';
+    const DB_HOST = 'db';
 
     /**
      * Database name
      * @var string
      */
+
+
     const DB_NAME = 'videgrenierenligne_stage';
 
     /**
@@ -27,13 +29,13 @@ class Config
      * @var string
      */
     const DB_USER = 'webapplication';
-
+    
     /**
      * Database password
      * @var string
      */
     const DB_PASSWORD = '653rag9T';
-
+    
     /**
      * Show or hide error messages on screen
      * @var boolean
