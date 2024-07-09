@@ -47,19 +47,15 @@ COPY Docker-vhost.conf /etc/apache2/sites-enabled/docker-vhost-wp.conf
 COPY composer.json /var/www/html/composer.json
 COPY package.json /var/www/html/package.json
 
-RUN chown -R www-data:www-data /var/www/html/public && \
-    chmod -R 755 /var/www/html/public
-    
-# Set the ServerName globally in Apache configuration
-RUN echo "ServerName localhost" >> /etc/apache2/apache2-servername.conf
-
-# Ensure Apache serves index.php as a directory index
-RUN echo 'DirectoryIndex index.php index.html' >> /etc/apache2/conf-available/docker-php.conf
-RUN a2enconf docker-php
-
 # Install dependencies
 RUN composer install
 RUN npm install
 
 # Ensure proper permissions for the web server
-RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /
+RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+
+# Restart Apache to apply changes
+RUN service apache2 restart
+
+# Start Apache in foreground mode
+CMD ["apache2-foreground"]
