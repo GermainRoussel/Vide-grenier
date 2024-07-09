@@ -68,11 +68,11 @@ RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-# Set the entrypoint
-ENTRYPOINT ["/start.sh"]
-
 
 # Restart Apache to apply changes
 RUN service apache2 restart
+
+# # Set the entrypoint
+# ENTRYPOINT ["/start.sh"]
 # Démarrer Apache en mode premier plan
 CMD ["apache2-foreground"]

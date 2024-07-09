@@ -92,7 +92,7 @@ class User extends \Core\Controller
 
         } catch (Exception $ex) {
             // TODO : Set flash if error : utiliser la fonction en dessous
-            /* Utility\Flash::danger($ex->getMessage());*/
+           
         }
     }
 
