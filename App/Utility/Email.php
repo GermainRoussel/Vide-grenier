@@ -26,7 +26,7 @@
     )
     );
     $mail->CharSet = 'UTF-8';
-
+   
    $mail->SMTPDebug = 0;
 
    $mail->isSMTP();
@@ -63,7 +63,7 @@
 
        $mail->send();
 
-       echo "Message has been sent successfully";
+       //echo "Message has been sent successfully";
 
    } catch (Exception $e) {
 
