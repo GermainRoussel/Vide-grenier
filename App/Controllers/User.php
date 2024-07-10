@@ -11,6 +11,9 @@ use \Core\View;
 use Exception;
 use http\Env\Request;
 use http\Exception\InvalidArgumentException;
+use App\Models\User as UserModel;
+use App\Utility\Email;
+
 
 /**
  * User controller
@@ -160,6 +163,23 @@ class User extends \Core\Controller
         header ("Location: /");
 
         return true;
+    }
+    
+    public function passwordForgottenAction(){
+        
+        if($_SERVER['REQUEST_METHOD'] == "GET"){
+            View::renderTemplate('User/forgot.html');
+        }else{
+            $email = $_POST["email"];
+            if($email == null){
+                throw new InvalidArgumentException("Email is required");
+            }
+            $password = UserModel::resetPassword($_POST["email"]);
+            Email::sendMail($email, "Votre nouveau mot de passe est ".$password, "Voici votre nouveau mot de passe !");
+            
+        
+        }
+        header ("Location: /login");
     }
 
 }

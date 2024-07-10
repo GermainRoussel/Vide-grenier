@@ -37,6 +37,7 @@ $router->add('product', ['controller' => 'Product', 'action' => 'index', 'privat
 $router->add('product/{id:\d+}', ['controller' => 'Product', 'action' => 'show']);
 $router->add('{controller}/{action}');
 $router->add('send-email', ['controller' => 'Product', 'action' => 'sendEmail', 'method' => 'POST']);
+$router->add('forgot', ['controller' => 'User', 'action' => 'passwordForgotten', 'method' => 'POST']);
 
 
 /*
