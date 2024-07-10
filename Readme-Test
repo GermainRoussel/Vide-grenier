@@ -1,0 +1,18 @@
+# Lancement des test PHPunit
+#Lancer les dépendances pour le container phpapache : 
+docker exec -t videgrenier-phpapache composer install
+
+#lancer les tests php unit depuis le terminal vs code : 
+docker exec -t videgrenier-phpapache ./vendor/bin/phpunit --testdox
+
+# npm install mocha chai --savedev
+
+#Lancement des tests Cypress
+#Installatin Cypress 
+npm init -y
+npm instal cypress --save-dev 
+
+#Lancement Cypress
+npm run cypress:open
+
+#Lancement de la Run
